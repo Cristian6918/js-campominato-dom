@@ -6,6 +6,10 @@ let difficulty = parseInt(document.querySelector('#range').value);
 let blueCell;
 let bombs = [];
 let bombCell = document.querySelectorAll('.bomb');
+const finalMessageContainer = document.querySelector('.final-message-container');
+const finalResult = document.querySelector('#final-result');
+const restartButton = document.querySelector('#reset');
+
 
 
 
@@ -13,13 +17,7 @@ let bombCell = document.querySelectorAll('.bomb');
 
 //Button/Event for difficulty change
 const button = document.querySelector('#button');
-button.addEventListener('click', function () {
-    grid.innerHTML = ''; //delete the old Grid
-    difficulty = parseInt(document.querySelector('#range').value);
-    createGrid(); //Create a new grid
-    blueCell = [];
-    score.innerText = `Score: ${blueCell.length}`;
-});
+button.addEventListener('click', reset);
 
 
 // Function for GRID creation
@@ -39,7 +37,7 @@ function createGrid() {
             }
             else {
                 cell.classList.add('bomb-act');
-                endGame();
+                endGame(false);
             }
             blueCell = document.querySelectorAll('.ct-blue');
             console.log(blueCell);
@@ -77,8 +75,25 @@ function generateBombs(min, max, nrBombs) {
     return array;
 }
 
-function endGame() {
+function endGame(isWin) {
     showBombs();
+    finalMessageContainer.classList.remove('d-none');
+    if (!isWin) {
+        finalResult.innerText = 'You Lost!'
+    } else {
+        finalResult.innerText = 'You Win!';
+    }
+
+    restartButton.addEventListener('click', () => {
+        reset();
+        finalMessageContainer.classList.add('d-none');
+    });
+
+
+
+
+
+
 }
 
 
@@ -88,6 +103,14 @@ function showBombs() {
         console.log(element);
         element.classList.add('bomb-act');
     }
+}
+
+function reset() {
+    grid.innerHTML = ''; //delete the old Grid
+    difficulty = parseInt(document.querySelector('#range').value);
+    createGrid(); //Create a new grid
+    blueCell = [];
+    score.innerText = `Score: ${blueCell.length}`;
 }
 
 

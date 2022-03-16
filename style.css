@@ -50,7 +50,7 @@
 .ct-bg-container{
     background-color: hsl(219deg 28% 28%);
 }
-#button{
+#button,button{
     color:white;
     background-color: hsl(207deg 79% 64%);
     border:none;
@@ -66,3 +66,25 @@
     font-size:2rem;
     color:white;
 }
+
+.final-message-container{
+    height: 100vh;
+    width:100%;
+    position:absolute;
+    top:0;
+    left:0;
+    background-color:#0000007a;
+    text-align:center;
+    
+}
+.final-message{
+    padding:10px;
+    width:30%;
+    margin:auto;
+    aspect-ratio:1;
+}
+
+#final-result{
+    color:white;
+}
+
