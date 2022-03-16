@@ -75,6 +75,7 @@ function generateBombs(min, max, nrBombs) {
     return array;
 }
 
+//End Game Function 
 function endGame(isWin) {
     showBombs();
     finalMessageContainer.classList.remove('d-none');
@@ -118,3 +119,4 @@ function reset() {
 
 
 createGrid();
+
