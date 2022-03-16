@@ -3,56 +3,47 @@ console.log('js ok');
 
 const grid = document.querySelector('#grid');
 let difficulty = parseInt(document.querySelector('#range').value);
-let range = Math.sqrt(difficulty);
-let tab = createGrid();
+let blueCell;
+let bombs = [];
+let bombCell = document.querySelectorAll('.bomb');
+
+
 
 
 
 //Button/Event for difficulty change
 const button = document.querySelector('#button');
 button.addEventListener('click', function () {
-
     grid.innerHTML = ''; //delete the old Grid
     difficulty = parseInt(document.querySelector('#range').value);
     createGrid(); //Create a new grid
-
-
+    blueCell = [];
+    score.innerText = `Score: ${blueCell.length}`;
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 // Function for GRID creation
 function createGrid() {
-    let bombs = generateBombs(1, difficulty, 16);
+    bombs = generateBombs(1, difficulty, 16);
     console.log(bombs);
-    for (let i = 0; i < difficulty; i++) {
+
+    let score = document.querySelector('#score');
+    for (let i = 1; i <= difficulty; i++) {
         const cell = createCell();
-        cell.innerText = (i + 1);
-        cell.setAttribute('id', `square-${i + 1}`);
-        if (bombs.includes(i + 1)) {
-            console.log('c è in posizione', i + 1);
-            cell.classList.add('bomb');
-        }
+        cell.innerText = i;
+        cell.setAttribute('id', `${i}`);
+
         cell.addEventListener('click', function () {
-            cell.classList.toggle('ct-blue');
+            if (!bombs.includes(i)) {
+                cell.classList.add('ct-blue');
+            }
+            else {
+                cell.classList.add('bomb-act');
+                endGame();
+            }
+            blueCell = document.querySelectorAll('.ct-blue');
+            console.log(blueCell);
+            score.innerText = `Score: ${blueCell.length}`;
         })
         grid.appendChild(cell);
     }
@@ -76,14 +67,31 @@ function createCell() {
 function generateBombs(min, max, nrBombs) {
     const range = max - min;
     let array = [];
-    for (i = 0; i < nrBombs; i++) {
+    for (let i = 0; i < nrBombs; i++) {
         number = Math.floor(Math.random() * range + 1);
         while (array.includes(number)) {
             number = Math.floor(Math.random() * range + 1);
         }
-        array.push(parseInt(number));
+        array.push(number);
     }
     return array;
 }
 
+function endGame() {
+    showBombs();
+}
 
+
+function showBombs() {
+    for (let i = 0; i < bombs.length; i++) {
+        element = document.getElementById(`${bombs[i]}`);
+        console.log(element);
+        element.classList.add('bomb-act');
+    }
+}
+
+
+
+
+
+createGrid();
