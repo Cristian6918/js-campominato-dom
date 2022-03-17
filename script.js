@@ -9,6 +9,7 @@ let bombCell = document.querySelectorAll('.bomb');
 const finalMessageContainer = document.querySelector('.final-message-container');
 const finalResult = document.querySelector('#final-result');
 const restartButton = document.querySelector('#reset');
+let finalScore = document.querySelector('#final-score');
 
 
 
@@ -86,9 +87,13 @@ function generateBombs(min, max, nrBombs) {
 function endGame(isWin) {
     showBombs();
     finalMessageContainer.classList.remove('d-none');
+
+
     if (!isWin) {
+        finalScore.innerText = `Score:${blueCell.length}`;
         finalResult.innerText = 'You Lost!'
     } else {
+
         finalResult.innerText = 'You Win!';
     }
     restartButton.addEventListener('click', () => {
