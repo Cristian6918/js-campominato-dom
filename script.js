@@ -15,6 +15,8 @@ const restartButton = document.querySelector('#reset');
 
 
 
+
+
 //Button/Event for difficulty change
 const button = document.querySelector('#button');
 button.addEventListener('click', reset);
@@ -23,7 +25,7 @@ button.addEventListener('click', reset);
 // Function for GRID creation
 function createGrid() {
     bombs = generateBombs(1, difficulty, 16);
-    console.log(bombs);
+
 
     let score = document.querySelector('#score');
     for (let i = 1; i <= difficulty; i++) {
@@ -34,13 +36,15 @@ function createGrid() {
         cell.addEventListener('click', function () {
             if (!bombs.includes(i)) {
                 cell.classList.add('ct-blue');
+                // bombsAround(i);
+                cell.innerText = bombsAround(i);
             }
             else {
                 cell.classList.add('bomb-act');
                 endGame(false);
             }
             blueCell = document.querySelectorAll('.ct-blue');
-            console.log(blueCell);
+
             score.innerText = `Score: ${blueCell.length}`;
             if (blueCell.length === difficulty - 16) {
                 endGame(true);
@@ -96,7 +100,7 @@ function endGame(isWin) {
 function showBombs() {
     for (let i = 0; i < bombs.length; i++) {
         element = document.getElementById(`${bombs[i]}`);
-        console.log(element);
+
         element.classList.add('bomb-act');
     }
 }
@@ -109,9 +113,54 @@ function reset() {
     score.innerText = `Score: ${blueCell.length}`;
 }
 
+function bombsAround(cellPosition) {
+    const rangeAround = Math.sqrt(difficulty);
+    let cont = 0;
+    const aroundArea = [];
+    switch (true) {
+        case cellPosition % rangeAround === 1:
+            aroundArea.push(cellPosition + 1 - rangeAround);
+            aroundArea.push(cellPosition - rangeAround);
+            aroundArea.push(cellPosition + 1);
+            aroundArea.push(cellPosition + rangeAround);
+            aroundArea.push(cellPosition + 1 + rangeAround);
+            break;
+        case cellPosition % rangeAround === 0:
+            aroundArea.push(cellPosition - rangeAround);
+            aroundArea.push(cellPosition - 1 - rangeAround);
+            aroundArea.push(cellPosition - 1);
+            aroundArea.push(cellPosition - 1 + rangeAround);
+            aroundArea.push(cellPosition + rangeAround);
+            break;
+        case cellPosition % rangeAround > 1:
+            aroundArea.push(cellPosition - 1 - rangeAround);
+            aroundArea.push(cellPosition - rangeAround);
+            aroundArea.push(cellPosition + 1 - rangeAround);
+            aroundArea.push(cellPosition - 1);
+            aroundArea.push(cellPosition + 1);
+            aroundArea.push(cellPosition - 1 + rangeAround);
+            aroundArea.push(cellPosition + rangeAround);
+            aroundArea.push(cellPosition + 1 + rangeAround);
+            break;
+    }
+
+    for (let index = 0; index < aroundArea.length; index++) {
+        if (bombs.includes(aroundArea[index]))
+            cont++;
+    }
+    console.log(aroundArea);
+    return cont;
+
+}
 
 
 
 
 createGrid();
+
+
+
+
+
+
 
