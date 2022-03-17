@@ -42,6 +42,9 @@ function createGrid() {
             blueCell = document.querySelectorAll('.ct-blue');
             console.log(blueCell);
             score.innerText = `Score: ${blueCell.length}`;
+            if (blueCell.length === difficulty - 16) {
+                endGame(true);
+            }
         })
         grid.appendChild(cell);
     }
@@ -84,19 +87,11 @@ function endGame(isWin) {
     } else {
         finalResult.innerText = 'You Win!';
     }
-
     restartButton.addEventListener('click', () => {
         reset();
         finalMessageContainer.classList.add('d-none');
     });
-
-
-
-
-
-
 }
-
 
 function showBombs() {
     for (let i = 0; i < bombs.length; i++) {

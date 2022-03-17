@@ -47,7 +47,7 @@
     height:100vh;
 }
 
-.ct-bg-container{
+body{
     background-color: hsl(219deg 28% 28%);
 }
 #button,button{
@@ -73,7 +73,7 @@
     position:absolute;
     top:0;
     left:0;
-    background-color:#0000007a;
+    background-color:#000000b6;
     text-align:center;
     
 }
