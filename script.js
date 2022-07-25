@@ -31,7 +31,7 @@ function createGrid() {
     let score = document.querySelector('#score');
     for (let i = 1; i <= difficulty; i++) {
         const cell = createCell();
-        cell.innerText = i;
+        // cell.innerText = i;
         cell.setAttribute('id', `${i}`);
 
         cell.addEventListener('click', function () {

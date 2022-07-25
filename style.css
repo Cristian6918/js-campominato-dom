@@ -56,11 +56,12 @@ body{
     border:none;
     box-shadow: 5px 5px 10px 0px #000000;
 }
-.bomb{
-   
-}
+
 .bomb-act{
-    background-color: red;
+    background: url('bomb.png'),#822121;
+    background-size: 70%;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 #score{
     font-size:2rem;
